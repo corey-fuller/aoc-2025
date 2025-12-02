@@ -35,6 +35,7 @@ class DialAction {
 }
 
 function part1(lines: string[]): void {
+  console.time('part1');
   let pos: number = 50;
   let zeroCount: number = 0;
 
@@ -46,9 +47,11 @@ function part1(lines: string[]): void {
   });
 
   console.log('part 1 => zero results count: ', zeroCount);
+  console.timeEnd('part1');
 }
 
 function part2(lines: string[]): void {
+  console.time('part2');
   let pos: number = 50;
   let zeroCount: number = 0;
 
@@ -59,6 +62,7 @@ function part2(lines: string[]): void {
   });
 
   console.log('part 2 => zero clicks count: ', zeroCount);
+  console.timeEnd('part2');
 }
 
 const lines: string[] = readFileLines(import.meta.url);

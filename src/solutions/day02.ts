@@ -62,6 +62,7 @@ class ProductIDRange {
 }
 
 function part1(lines: string[]): void {
+  console.time('part1');
   let allInvalidIDs: number[] = [];
   lines.forEach((line) => {
     const lineParts = line.split('-');
@@ -73,9 +74,11 @@ function part1(lines: string[]): void {
 
   const sum: number = allInvalidIDs.reduce((sum, current) => sum + current, 0);
   console.log('part 1 => sum of all invalid IDs: ', sum);
+  console.timeEnd('part1');
 }
 
 function part2(lines: string[]): void {
+  console.time('part2');
   let allInvalidIDs: number[] = [];
   lines.forEach((line) => {
     const lineParts = line.split('-');
@@ -87,6 +90,7 @@ function part2(lines: string[]): void {
 
   const sum: number = allInvalidIDs.reduce((sum, current) => sum + current, 0);
   console.log('part 2 => sum of all invalid IDs: ', sum);
+  console.timeEnd('part2');
 }
 
 const lines: string[] = readFileLines(import.meta.url, ',');

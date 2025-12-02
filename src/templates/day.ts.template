@@ -1,11 +1,15 @@
 import readFileLines from './common/readFileLines.js';
 
 function part1(lines: string[]): void {
+  console.time('part1');
   console.log('part 1 => ');
+  console.timeEnd('part1');
 }
 
 function part2(lines: string[]): void {
+  console.time('part2');
   console.log('part 2 => ');
+  console.timeEnd('part2');
 }
 
 const lines: string[] = readFileLines(import.meta.url);
