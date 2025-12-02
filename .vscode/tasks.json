@@ -1,0 +1,28 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Run Day",
+      "type": "shell",
+      "command": "make run DAY=${input:dayNumber}",
+      "problemMatcher": [],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      }
+    },
+    {
+      "label": "New Day",
+      "type": "shell",
+      "command": "make nd DAY=${input:dayNumber}",
+      "problemMatcher": []
+    }
+  ],
+  "inputs": [
+    {
+      "id": "dayNumber",
+      "type": "promptString",
+      "description": "Enter day number (e.g., 01, 02, 03)"
+    }
+  ]
+}

@@ -16,15 +16,17 @@ const solutionsTemplateContent = readFileSync(
 try {
   const solutionsPath = join("./src/solutions", `day${day}.ts`);
   writeFileSync(solutionsPath, solutionsTemplateContent, { flag: "wx" });
-  console.log(`new day solution file: ${solutionsPath}`);
+  console.log(`✓ Created solution file: ${solutionsPath}`);
 
   const inputsPath = join("./src/inputs", `day${day}.txt`);
   writeFileSync(inputsPath, "", { flag: "wx" });
-  console.log(`new day input file: ${inputsPath}`);
+  console.log(`✓ Created input file: ${inputsPath}`);
+
+  console.log(`🎄 Ready to solve Day ${day}! Run: make run DAY=${day}`);
 } catch (error) {
   if (error.code === "EEXIST") {
-    console.log("File already exists, no changes were made.");
+    console.log("⚠️ File already exists, no changes were made.");
   } else {
-    console.error("An unexpected error occurred:", error);
+    console.error("❌ An unexpected error occurred:", error);
   }
 }

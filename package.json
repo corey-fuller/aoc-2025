@@ -1,6 +1,12 @@
 {
   "name": "aoc-2025",
   "type": "module",
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc --watch",
+    "new": "node src/scripts/startNewDay.js",
+    "solve": "tsc && node"
+  },
   "devDependencies": {
     "@types/node": "^24.10.1"
   }

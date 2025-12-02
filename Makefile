@@ -4,8 +4,17 @@ run:
 	tsc
 	node ./src/transpiled/day$(DAY).js
 
+watch:
+	tsc --watch
+
+dev:
+	tsc && node --watch ./src/transpiled/day$(DAY).js
+
 nd:
 	node src/scripts/startNewDay.js $(DAY)
 
 install:
 	npm install
+
+clean:
+	rm -rf src/transpiled
