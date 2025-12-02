@@ -5,7 +5,7 @@ class DialAction {
   public zeroClicksCount: number = 0;
 
   constructor(direction: string, count: number) {
-    this.count = count * (direction === "L" ? -1 : 1);
+    this.count = count * (direction === 'L' ? -1 : 1);
   }
 
   turn(currentPos: number): number {
@@ -45,7 +45,7 @@ function part1(lines: string[]): void {
     }
   });
 
-  console.log("part 1 => zero results count: ", zeroCount);
+  console.log('part 1 => zero results count: ', zeroCount);
 }
 
 function part2(lines: string[]): void {
@@ -58,7 +58,7 @@ function part2(lines: string[]): void {
     zeroCount += action.zeroClicksCount;
   });
 
-  console.log("part 2 => zero clicks count: ", zeroCount);
+  console.log('part 2 => zero clicks count: ', zeroCount);
 }
 
 const lines: string[] = readFileLines(import.meta.url);
