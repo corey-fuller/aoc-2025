@@ -1,0 +1,13 @@
+import readFileLines from './common/readFileLines';
+
+function part1(lines: string[]): void {
+  console.log("part 1 => ");
+}
+
+function part2(lines: string[]): void {
+  console.log("part 2 => ");
+}
+
+const lines: string[] = readFileLines(__filename);
+part1(lines);
+part2(lines);
