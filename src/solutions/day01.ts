@@ -28,9 +28,7 @@ class DialAction {
       }
     }
 
-    // console.log('current position: ' + currentPos + '; count: ' + this.count + '; newPos: ' + newPos + '; zero clicks: ' + this.zeroClicksCount);
-
-    return this.turn(currentPos);;
+    return this.turn(currentPos);
   }
 }
 
