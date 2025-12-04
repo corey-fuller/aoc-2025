@@ -1,32 +1,14 @@
 import readFileLines from './common/readFileLines.js';
 
-class Battery {
-  private _position: number;
-  private _joltage: number;
-
-  constructor(position: number, joltage: number) {
-    this._position = position;
-    this._joltage = joltage;
-  }
-
-  get position(): number {
-    return this._position;
-  }
-
-  get joltage(): number {
-    return this._joltage;
-  }
-}
-
 class BatteryBank {
-  private batteries: Battery[];
+  private batteries: [number, number][];
 
   constructor(batteries: number[]) {
-    this.batteries = batteries.map((joltage, position) => new Battery(position, joltage));
+    this.batteries = batteries.map((joltage, position) => [position, joltage]);
   }
 
-  findHighestJoltageBatteryBetween(start: number, end: number): Battery {
-    return this.batteries.slice(start, end).reduce((max: Battery, current: Battery) => current.joltage > max.joltage ? current : max);
+  findHighestJoltageBatteryBetween(start: number, end: number): [number, number] {
+    return this.batteries.slice(start, end).reduce((max: [number, number], current: [number, number]) => current[1] > max[1] ? current : max);
   }
 
   findHighestJoltageBatteryCombo(size: number): number {
@@ -34,8 +16,8 @@ class BatteryBank {
     let currentBankPosition: number = 0;
     for (let i: number = size-1; i >=0; i--) {
       const battery = this.findHighestJoltageBatteryBetween(currentBankPosition, this.batteries.length - i);
-      currentBankPosition = battery.position + 1;
-      batteryJoltageCombo = batteryJoltageCombo * 10 + battery.joltage;
+      currentBankPosition = battery[0] + 1;
+      batteryJoltageCombo = batteryJoltageCombo * 10 + battery[1];
     }
     return batteryJoltageCombo;
   }

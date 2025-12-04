@@ -60,10 +60,12 @@ class PaperRollGrid {
     return this.paperRolls.filter((pRoll) => pRoll.isAccessible() && !pRoll.isRemoved());
   }
 
-  removeAccessibleRolls(): void {
-    this.paperRolls.filter((pRoll) => pRoll.isAccessible()).forEach(pRoll => {
+  removeAccessibleRolls(): number {
+    const accessibleRolls: PaperRoll[] = this.getAccessibleRolls();
+    accessibleRolls.forEach((pRoll) => {
       pRoll.setRemoved(true);
     });
+    return accessibleRolls.length;
   }
 
   private determineNeighbors(): void {
@@ -85,17 +87,6 @@ class PaperRollGrid {
     }, []);
 
     return paperRolls;
-
-
-    // let paperRolls: PaperRoll[] = [];
-    // for(let rowIdx: number = 0; rowIdx < grid.length; rowIdx++) {
-    //   for(let colIdx: number = 0; colIdx < grid[rowIdx].length; colIdx++) {
-    //     if (grid[rowIdx][colIdx] === '@') {
-    //       paperRolls.push(new PaperRoll(rowIdx, colIdx));
-    //     }
-    //   }
-    // }
-    // return paperRolls;
   }
 }
 
@@ -112,9 +103,8 @@ function part2(lines: string[]): void {
   const grid = new PaperRollGrid(lines);
   let totalCount: number = 0;
   let currentCount: number = 0;
-  while((currentCount = grid.getAccessibleRolls().length) > 0) {
+  while((currentCount = grid.removeAccessibleRolls()) > 0) {
     totalCount += currentCount;
-    grid.removeAccessibleRolls();
   }
 
   console.log('part 2 => ', totalCount);
