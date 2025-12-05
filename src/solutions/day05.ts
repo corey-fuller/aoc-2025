@@ -1,17 +1,14 @@
 import { readFileLinesWithSections } from './common/readFileLines.js';
 
 class FreshnessRule {
-  private id: number;
   private min: number;
   private max: number;
   private count: number = 0;
 
   constructor(
-    id: number,
     min: number,
     max: number
   ) {
-    this.id = id;
     this.min = min;
     this.max = max;
     this.count = this.max - this.min + 1;
@@ -25,22 +22,22 @@ class FreshnessRule {
     return ingredient >= this.min && ingredient <= this.max;
   }
 
-  mergeRules(freshnessRules: FreshnessRule[]): FreshnessRule[] {
-    let merged: boolean = false;
-    freshnessRules.forEach((rule, index) => {
-      if (this.hasOverlap(rule)) {
-        this.min = Math.min(this.min, rule.min);
-        this.max = Math.max(this.max, rule.max);
-        this.count = this.max - this.min + 1;
-        freshnessRules.splice(index, 1);
-        merged = true;
-      }
-    });
-    return merged ? freshnessRules : [];
+  getMin(): number {
+    return this.min;
+  }
+
+  getMax(): number {
+    return this.max;
   }
 
   hasOverlap(rule: FreshnessRule) {
-    return this.id !== rule.id && !(this.max < rule.min || this.min > rule.max);
+    return !(this.max < rule.min || this.min > rule.max);
+  }
+
+  merge(rule: FreshnessRule): void {
+    this.min = Math.min(this.min, rule.min);
+    this.max = Math.max(this.max, rule.max);
+    this.count = this.max - this.min + 1;
   }
 }
 
@@ -53,7 +50,7 @@ function part1(sections: string[][]): void {
   const rangeRegex = /(\d+)-(\d+)/;
   ranges.forEach((range, index) => {
     const [, min, max] = rangeRegex.exec(range) ?? [];
-    freshnessRules.push(new FreshnessRule(index, parseInt(min), parseInt(max)));
+    freshnessRules.push(new FreshnessRule(parseInt(min), parseInt(max)));
   });
 
   let freshIngredientsFound: number = 0;
@@ -78,16 +75,13 @@ function part2(sections: string[][]): void {
   let count: number = 0;
   let freshnessRules: FreshnessRule[] = [];
   const rangeRegex = /(\d+)-(\d+)/;
-  ranges.forEach((range, index) => {
+  ranges.forEach((range) => {
     const [, min, max] = rangeRegex.exec(range) ?? [];
-    freshnessRules.push(new FreshnessRule(index, parseInt(min), parseInt(max)));
+    freshnessRules.push(new FreshnessRule(parseInt(min), parseInt(max)));
   });
 
-  let mergedRules = mergeRules(freshnessRules);
-  while ((mergedRules = mergeRules(mergedRules)).length > 0) {
-    freshnessRules = mergedRules;
-  }
-  freshnessRules.forEach((rule) => {
+  const mergedRules = mergeRules(freshnessRules);
+  mergedRules.forEach((rule) => {
     count += rule.getCount();
   });
   console.log('part 2 => ', count);
@@ -95,15 +89,27 @@ function part2(sections: string[][]): void {
 }
 
 function mergeRules(freshnessRules: FreshnessRule[]): FreshnessRule[] {
-  let merged: boolean = false;
-  freshnessRules.forEach((rule1) => {
-    const mergeResult = rule1.mergeRules(freshnessRules);
-    if (mergeResult.length > 0) {
-      freshnessRules = mergeResult;
-      merged = true;
+  if (freshnessRules.length === 0) return [];
+  
+  // Sort by min value
+  freshnessRules.sort((a, b) => a.getMin() - b.getMin());
+  
+  const merged: FreshnessRule[] = [freshnessRules[0]];
+  
+  for (let i = 1; i < freshnessRules.length; i++) {
+    const last = merged[merged.length - 1];
+    const current = freshnessRules[i];
+    
+    if (last.hasOverlap(current)) {
+      // Overlapping, merge into last
+      last.merge(current);
+    } else {
+      // No overlap, add new range
+      merged.push(current);
     }
-  });
-  return merged ? freshnessRules : [];
+  }
+  
+  return merged;
 }
 
 const sections: string[][] = readFileLinesWithSections(import.meta.url);
