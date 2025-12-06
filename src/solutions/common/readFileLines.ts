@@ -1,7 +1,7 @@
 import { basename } from 'path';
 import { readFileSync } from 'fs';
 
-export default function readFileLines(filename: string, delimiter :string = '\n'): string[] {
+export default function readFileLines(filename: string, delimiter :string = '\n', trim : boolean = true): string[] {
   let fileContent: string = '';
   try {
     fileContent = readFileSync(`./src/inputs/${basename(filename, '.js')}.txt`, 'utf-8').replace(/\r/g, '');
@@ -9,7 +9,7 @@ export default function readFileLines(filename: string, delimiter :string = '\n'
     console.error('Error reading file:', error);
   }
 
-  return fileContent.trim().split(delimiter).map(String);
+  return trim ? fileContent.trim().split(delimiter).map(String) : fileContent.split(delimiter).map(String);
 }
 
 export function readFileLinesWithSections(filename: string, delimiter :string = '\n', sectionDelimiter: string = '\n\n'): string[][] {
