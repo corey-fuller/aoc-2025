@@ -49,6 +49,7 @@ class Operation {
   }
 }
 
+// TODO: I hate this... revisit this later
 function part2(lines: string[]): void {
   console.time('part2');
 
