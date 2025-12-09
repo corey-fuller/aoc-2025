@@ -1,4 +1,4 @@
-import readFileLines from './common/readFileLines.js';
+import { readFile } from './common/readFileLines.js';
 
 class PaperRoll {
   private rowIdx: number;
@@ -111,6 +111,6 @@ function part2(lines: string[]): void {
   console.timeEnd('part2');
 }
 
-const lines: string[] = readFileLines(import.meta.url);
+const lines: string[] = readFile(import.meta.url).asArray();
 part1(lines);
 part2(lines);

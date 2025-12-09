@@ -1,4 +1,4 @@
-import { readFileLinesWithSections } from './common/readFileLines.js';
+import { readFile } from './common/readFileLines.js';
 
 class FreshnessRule {
   private min: number;
@@ -112,6 +112,6 @@ function mergeRules(freshnessRules: FreshnessRule[]): FreshnessRule[] {
   return merged;
 }
 
-const sections: string[][] = readFileLinesWithSections(import.meta.url);
+const sections: string[][] = readFile(import.meta.url).asSections();
 part1(sections);
 part2(sections);

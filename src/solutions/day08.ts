@@ -1,4 +1,4 @@
-import readFileLines from './common/readFileLines.js';
+import { readFile } from './common/readFileLines.js';
 
 class Circuit {
   private boxSet: Set<string>;
@@ -51,6 +51,7 @@ class JunctionBoxPair {
 
 function compareAllJunctionBoxes(lines: string[]): JunctionBoxPair[] {
   // get the distances between each junction box
+  // TODO: optimize by not adding duplicate pairs
   const boxes = lines.map(line => line.split(',').map(Number));
   let jboxPairs : JunctionBoxPair[] = [];
   for (let i = 0; i < boxes.length; i++) {
@@ -135,6 +136,6 @@ function part2(lines: string[]): void {
   console.timeEnd('part2');
 }
 
-const lines: string[] = readFileLines(import.meta.url);
+const lines: string[] = readFile(import.meta.url).asArray();
 part1(lines);
 part2(lines);

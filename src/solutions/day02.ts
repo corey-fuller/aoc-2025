@@ -1,4 +1,4 @@
-import readFileLines from './common/readFileLines.js';
+import { readFile } from './common/readFileLines.js';
 
 // checks only for twice-repeated pattern
 function isProductIDValidV1(productID: number): boolean {
@@ -68,7 +68,6 @@ function part1(lines: string[]): void {
     const lineParts = line.split('-');
     const productIDRange: ProductIDRange = new ProductIDRange(Number(lineParts[0]), Number(lineParts[1]));
     productIDRange.findInvalidProductIDs(isProductIDValidV1);
-    // console.log('found invalid product IDs: ', productIDRange.invalidProductIDs);
     allInvalidIDs.push(...productIDRange.invalidProductIDs);
   });
 
@@ -84,7 +83,6 @@ function part2(lines: string[]): void {
     const lineParts = line.split('-');
     const productIDRange: ProductIDRange = new ProductIDRange(Number(lineParts[0]), Number(lineParts[1]));
     productIDRange.findInvalidProductIDs(isProductIDValidV2);
-    // console.log('found invalid product IDs: ', productIDRange.invalidProductIDs);
     allInvalidIDs.push(...productIDRange.invalidProductIDs);
   });
 
@@ -93,6 +91,6 @@ function part2(lines: string[]): void {
   console.timeEnd('part2');
 }
 
-const lines: string[] = readFileLines(import.meta.url, ',');
+const lines: string[] = readFile(import.meta.url).asArray({delimiter: ','});
 part1(lines);
 part2(lines);

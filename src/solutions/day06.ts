@@ -1,4 +1,4 @@
-import readFileLines from './common/readFileLines.js';
+import {readFile } from './common/readFileLines.js';
 
 function part1(lines: string[]): void {
   console.time('part1');
@@ -108,6 +108,6 @@ function part2(lines: string[]): void {
   console.timeEnd('part2');
 }
 
-const lines: string[] = readFileLines(import.meta.url, '\n', false);
+const lines: string[] = readFile(import.meta.url).asArray({trim: false});
 part1(lines);
 part2(lines);
